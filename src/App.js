@@ -7,8 +7,11 @@ import {Container} from 'react-bootstrap'
 import './App.css'
 //user defined component imports
 import AppNavbar from './components/AppNavbar';
-import Courses from './pages/Courses';
-import Home from './pages/Home';
+// import Courses from './pages/Courses';
+// import Home from './pages/Home';
+import Login from './pages/Login'
+import Register from './pages/Register'
+
 //To be executed in the homepage
 // import Banner from './components/Banner';
 // import Highlights from './components/Highlights';
@@ -23,8 +26,10 @@ function App() {
     <Fragment>
       <AppNavbar />
       <Container>
-        <Home />
-        <Courses />
+{/*     <Home />
+        <Courses />*/}
+       <Login />
+        {/*<Register />*/}
 {/*        <Banner />
         <Highlights />*/}
       </Container>

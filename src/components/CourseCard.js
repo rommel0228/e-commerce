@@ -24,6 +24,13 @@ export default function CourseCard({course}) {
 		}
 	};
 	
+	useEffect(() => {
+		if( seats === 0) {
+			setSeats(false);
+		}
+	}, [seats]);
+
+
 
 	return(
 			<Card>
