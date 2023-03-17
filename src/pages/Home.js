@@ -1,13 +1,14 @@
 import Banner from '../components/Banner';
+// import CourseCard from '../components/CourseCard';
 import Highlights from '../components/Highlights';
-import CourseCard from '../components/CourseCard';
+
 
 export default function Home() {
 	return (
 		<>
 			<Banner />
 			<Highlights />
-			<CourseCard />
+			{/*<CourseCard />*/}
 		</>
 		)
 }

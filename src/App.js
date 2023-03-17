@@ -7,6 +7,7 @@ import {Container} from 'react-bootstrap'
 import './App.css'
 //user defined component imports
 import AppNavbar from './components/AppNavbar';
+import Courses from './pages/Courses';
 import Home from './pages/Home';
 //To be executed in the homepage
 // import Banner from './components/Banner';
@@ -23,6 +24,7 @@ function App() {
       <AppNavbar />
       <Container>
         <Home />
+        <Courses />
 {/*        <Banner />
         <Highlights />*/}
       </Container>
