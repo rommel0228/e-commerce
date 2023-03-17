@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
+import { useState , useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import {Row, Col, Card, Button} from 'react-bootstrap';
@@ -10,42 +9,22 @@ export default function CourseCard({course}) {
 	// console.log(typeof props);
 
 	const [count, setCount] = useState(0);
-	const [seat, setSeat] = useState(30)
-
-	console.log(useState(0));
+	const [seats, setSeats] = useState(30)
 
 
-	// function enroll() {
-	// 	setCount(count +1);
-	// 	console.log(`Enrollees: ${count}`)
-	// }
 
 	function enroll() {
-		let newCount = setCount(count +1);
-		let newSeat = setSeat(seat -1);
-		
-
-		if (newSeat = 25) {
-			const [show, setShow] = useState(true);
-			return (
-			      <Alert show={show} variant="success">
-			              <Alert.Heading>local:3000 says</Alert.Heading>
-			              <p>
-			              No more seats
-			              <hr />
-			              <div className="d-flex justify-content-end">
-			                <Button onClick={() => setShow(false)} variant="outline-success">
-			                  Ok </Button>
-			              </div>
-			            </Alert>
-
-			            {!show && <Button onClick={() => setShow(true)}>Show Alert</Button>}
-		)};
-
-		console.log(`Enrollees: ${count}`);
-		console.log(`Available seats: ${seat}`);
+		if(seats > 0) {
+			setCount(count +1);
+			setSeats(seats -1);
+			console.log("Available seats:" + seats);
+			console.log("Enrollees:" + count);
+		}else{
+			alert("No more seats available")
+		}
 	};
 	
+
 	return(
 			<Card>
 			    <Card.Body>
