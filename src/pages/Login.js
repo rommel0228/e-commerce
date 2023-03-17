@@ -9,8 +9,10 @@ export default function Login(){
 	console.log(email);
 	console.log(password1);
 
-	function registerUser(e) {
+	function authenticate(e) {
 		e.preventDefault();
+
+		localStorage.setItem("email", email)
 
 		setEmail('');
 		setPassword1('');
@@ -28,7 +30,7 @@ export default function Login(){
 	}, [email, password1]);
 
 	return(
-		<Form onSubmit={(e) => registerUser(e)}>
+		<Form onSubmit={(e) => authenticate(e)}>
 		 <h1>Login</h1>
 	      <Form.Group className="mb-3" controlId="userEmail">
 	        <Form.Label>Email address</Form.Label>
