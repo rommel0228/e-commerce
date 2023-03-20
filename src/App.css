@@ -7,3 +7,33 @@
 .cardHighlight {
 	min-height: 100%;
 }
+
+/*Capstone 3: Product Page*/
+.productCard{
+	display: inline-block;
+}
+
+.productImage{
+	height: 200px;
+	width: 150px;
+}
+
+#productCardItem:hover {
+	border-color: green;
+	border-width: 3px;
+	transition: 500ms;
+}
+
+.d-block {
+	height: 20rem;
+	width: 20rem;
+}
+
+.clickableProdCard {
+  text-decoration: none;
+  color: green;
+}
+
+.cartIcon {
+	height: 25px;
+}

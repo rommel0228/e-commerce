@@ -1,31 +1,19 @@
-//Bootstrap grid system components row, col
-import {Button, Row, Col} from 'react-bootstrap';
+// Bootstrap grid system components (row, col)
+import { Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
+export default function Banner({data}) {
 
-export default function Banner() {
-	const links = ["/", "/logout", "/courses","register","/login"]
+	console.log(data);
+    const {title, content, destination, label} = data;
 
-	let isFound = links.find(window.location.pathname);
-	console.log(isFound);
-
-	// return (
-	
-	// 			// { (isFound)?
-	// 			// <>
-	// 			// <Row>
-	// 			// 	<Col className = "p-5">
-	// 			// 	 	<h1> Zuitt Coding Bootcamp </h1>
-	// 			// 	 	<p>Opportunities for everyone, everywhere. </p>
-	// 			// 	 	<Button variant="primary"> Enroll Now! </Button>
-	// 			// 	</Col>
-	// 			// </Row>
-
-	// 			// </>
-	// 			// :
-	// 			// <>
-	// 			// <p>error</p>
-	// 			// </>	
-	// 			// }
-			 	
-	// );
+    return (
+        <Row>
+            <Col>
+                <h1>{title}</h1>
+                <p>{content}</p>
+                <Link to={destination}>{label}</Link>
+            </Col>
+        </Row>
+    )
 }

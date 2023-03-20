@@ -1,8 +1,14 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
+
+import { Navigate } from 'react-router-dom';
+
+import UserContext from "../UserContext"
+
 
 export default function Register(){
 
+	const { user, setUser } = useContext(UserContext);
 	const [email, setEmail] = useState('');
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
@@ -32,6 +38,9 @@ export default function Register(){
 		}
 	}, [email, password1, password2]);
 	return(
+		(user.email !== null)?
+ 		<Navigate to="/courses"/>
+ 		:
 		<Form onSubmit={(e) => registerUser(e)}>
 	      <Form.Group className="mb-3" controlId="userEmail">
 	        <Form.Label>Email address</Form.Label>
