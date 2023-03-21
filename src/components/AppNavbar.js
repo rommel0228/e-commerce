@@ -34,7 +34,7 @@ export default function AppNavbar(){
 						{/*For capstone*/}
 						<Nav.Link as={ NavLink } to="/products">Products</Nav.Link>
 
-						{ (user.email !== null) ?
+						{ (user.id !== null) ?
 							<><Nav.Link as={ NavLink } to="/logout">Logout</Nav.Link>
 							{/*When clicked, should redirect to checkout page which contains the list of products from users checkout array*/}
 						<Nav.Link as={ NavLink } to="/cart">

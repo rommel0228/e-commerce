@@ -1,6 +1,6 @@
 // built-in react modules imports
 // import { Fragment } from 'react'; 
-import { useState } from 'react'; 
+import { useState, useEffect} from 'react'; 
 
 // downloaded package modules imports
 import { Container } from 'react-bootstrap';
@@ -11,6 +11,7 @@ import './App.css';
 // (user-defined) components imports (alphabetical or according file structure)
 import AppNavbar from './components/AppNavbar';
 import Courses from './pages/Courses';
+import CourseView from './components/CourseView';
 import Error from './pages/Error';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -38,11 +39,19 @@ function App() {
   // State hook for the user state that's defined here for a global scope
   // Initialized as an object with properties from the localStorage
   // This will be used to store the user information and will be used for validating if a user is logged in on the app or not
-  const [ user, setUser] = useState({ email: localStorage.getItem('email')});
+  const [ user, setUser] = useState({
+      id: null,
+      isAdmin: null
+  });
 
   const unsetUser = () => {
     localStorage.clear();
-  }
+  };
+
+  useEffect(() => {
+    console.log(user);
+    console.log(localStorage);
+  }, [user])
 
   return (
 
@@ -55,6 +64,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:courseId" element={<CourseView />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />}/>
@@ -65,10 +75,6 @@ function App() {
       </Router>
 
     </UserProvider>
-
-    
-
-
 
     /*
       - JSX syntax requires that components should always have closing tags.
