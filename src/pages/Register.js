@@ -2,26 +2,27 @@ import {useState, useEffect, useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 
 import { Navigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 import UserContext from "../UserContext"
 
 
-export default function Register(){
 
+export default function Register(){
 	const { user, setUser } = useContext(UserContext);
-	const [email, setEmail] = useState('');
-	const [password1, setPassword1] = useState('');
-	const [password2, setPassword2] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [mobileNo, setMobileNo] = useState('');
+	const [ email, setEmail ] = useState('');
+	const [ password1, setPassword1 ] = useState('');
+	const [ password2, setPassword2 ] = useState('');
+	const [ firstName, setFirstName ] = useState('');
+	const [ lastName, setLastName ] = useState('');
+	const [ mobileNo, setMobileNo ] = useState('');
 
 	const [isActive, setIsActive] = useState(false);
 
-	function checkEmail(e){
+	function registerUser(e) {
+		e.preventDefault();
 		fetch('http://localhost:4000/users/checkEmail',
 		{
-			method: 'GET',
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -31,14 +32,39 @@ export default function Register(){
 		})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data)
+			if (data === false) {
+				fetch('http://localhost:4000/users/register', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					firstName: firstName,
+					lastName: lastName,
+				    email: email,
+				    mobileNo: mobileNo,
+				    password: password1
+				})
+			})
+				Swal.fire({
+				title: "Registration Successful",
+				icon: "success",
+				text: "Welcome!!!"
+			})
+				.then(function() {
+    			window.location = "http://localhost:3000/login";
+    			})
+			} else if (data === true) {
+				Swal.fire({
+					title: "Duplicate email found",
+					icon: "error",
+					text: "Please provide a different email"
+				})
+				.then(function() {
+    			window.location = "http://localhost:3000/login";
+    			});
+			}
 		})
-
-	}
-
-
-	function registerUser(e) {
-		e.preventDefault();
 
 		setEmail('');
 		setPassword1('');
@@ -46,22 +72,20 @@ export default function Register(){
 		setFirstName('')
 		setLastName('')
 		setMobileNo('')
-
-		alert("Thank you for registering!")
 	};
 
 	useEffect(() => {
 
-		if((email !== '' && password1 !== '' && password2 !== '' && firstName !=='' && lastName !=='' && mobileNo !== '') && (password1 === password2)) {
+		if((email !== '' && password1 !== '' && password2 !== '' && !(firstName.length < 11) && !(lastName.length < 11) && !(mobileNo.length < 11)) && (password1 === password2)) {
 			setIsActive(true);
 		} else {
 			setIsActive(false);
 		}
 	}, [email, password1, password2, firstName , lastName, mobileNo]);
 	return(
-		(user.id !== null)?
- 		<Navigate to="/courses"/>
- 		:
+		<>
+ 	{/*	<Navigate to="/login"/>*/}
+ 		
 		<Form onSubmit={(e) => registerUser(e)}>
 	      <Form.Group className="mb-3" controlId="userFirstName">
 	      	<Form.Label>First Name</Form.Label>
@@ -140,5 +164,6 @@ export default function Register(){
 	      </Button>
 	  	}
     </Form>
+    </>
     )
 }
