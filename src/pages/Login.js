@@ -129,7 +129,7 @@ export default function Login() {
     return (
 
     	(user.id !== null) ?
-    		<Navigate to="/courses"/>
+    		<Navigate to="/products"/>
     	:
 		    <Form onSubmit={e => authenticate(e)}>
 		        <Form.Group className="mb-3" controlId="userEmail">

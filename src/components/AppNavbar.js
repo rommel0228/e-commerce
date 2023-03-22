@@ -22,7 +22,7 @@ export default function AppNavbar(){
 	return (
 		<Navbar bg="light" expand="lg">
 			<Container fluid>
-				<Navbar.Brand as={ Link } to="/">Zuitt Booking</Navbar.Brand>
+				<Navbar.Brand as={ Link } to="/">TechStop</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">

@@ -1,27 +1,33 @@
+import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import FeaturedProductsCarousel from '../components/FeaturedProductsCarousel';
-
-//import data from database
-import productsData from '../data/products';
 
 
-export default function Products() {
-	console.log(productsData);
-	console.log(productsData[0]);
-	const products = productsData.map(product => {
-		return (
-			<ProductCard key = {product.id} product = {product} />
-		)
-	});
+export default function Products(){
 
-	return(
-	<>
+	const [ product, setProducts ] = useState([]);
+
+	useEffect(() => {
+
+		fetch(`http://localhost:4000/products/allactive/`)
+		.then(res => res.json())
+		.then(data=> {
+
+			console.log(data);
+
+			setProducts(data.map(product=> {
+				return (
+					<ProductCard key={ product._id } product={product} />
+				);
+			}));
+		})
+	}, []);
+
+	
+
+	
+	return (
 		<>
-			<FeaturedProductsCarousel/>
+			{ product }
 		</>
-		<>
-			{ products }
-		</>
-	</>
 	)
 }
