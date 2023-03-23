@@ -12,6 +12,7 @@ import './App.css';
 import AppNavbar from './components/AppNavbar';
 import Courses from './pages/Courses';
 import CourseView from './components/CourseView';
+import UpdateProductAdmin from './components/UpdateProductAdmin';
 import Error from './pages/Error';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -66,52 +67,19 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:courseId" element={<CourseView />} />
+            <Route path="/products/:productId" element={<UpdateProductAdmin />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />}/>
             <Route path="/products" element={<Products />}/>
-            <Route path="/products/addProduct" element={<AdminDashboard />}/>
+            <Route path="/products/dashboard" element={<AdminDashboard />}/>
             <Route path="*" element={<Error />} />
           </Routes>
         </Container>
       </Router>
 
     </UserProvider>
-
-    /*
-      - JSX syntax requires that components should always have closing tags.
-      - In the example above, since the "AppNavbar" component does not require any text to be placed in between, we add a "/" at the end to signify that they are self-closing tags.
-    */
-
-    /*
-      - In React JS, multiple components rendered in a single component should be wrapped in a parent component.
-      - Not doing so will return an error in our application.
-      - The "Fragment" component ensures that this error can be prevented.
-    */
-//     <Fragment>
-//       <AppNavbar />
-//       <Container>
-// {/*        <Home />
-//         <Courses />*/}
-//         {/*<Register />*/}
-//         <Login />
-//         {/*<Banner />
-//         <Highlights />*/}
-//       </Container>      
-//     </Fragment>
-
-    // Or you can use the empty tags as a parent component
-    // <>
-    //   <AppNavbar />
-    //   <Banner />
-    // </>
-
-    // and the div tags as a parent component
-    // <div>
-    //   <AppNavbar />
-    //   <Banner />
-    // </div>
-    
+   
   );
 }
 

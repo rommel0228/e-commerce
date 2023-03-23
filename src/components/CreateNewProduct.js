@@ -41,8 +41,37 @@ export default function CreateNewProduct() {
 	})
 	.then(res => res.json())
 	.then(data => {
-		console.log(data)
+		console.log(data);
+
+		if (data === true) {
+
+	                    // Clear input fields
+	                    setName('');
+	                    setDescription('');
+	                    setPrice('');
+
+	                    Swal.fire({
+	                        title: 'Success',
+	                        icon: 'success',
+	                        text: 'You have successfully added new product'
+	                    });
+
+	                    // Allows us to redirect the user to the login page after registering for an account
+	                    navigate("/products/dashboard");
+
+	                } else {
+
+	                    Swal.fire({
+	                        title: 'Something wrong',
+	                        icon: 'error',
+	                        text: 'Please try again.'   
+	                    });
+	                }
+
 	})
+
+
+
 	}
 
 

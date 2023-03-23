@@ -31,22 +31,18 @@ export default function AppNavbarAdmin(){
 						<Nav.Link as={ NavLink } to="/">Home</Nav.Link>
 						{/*- The "to" prop is used in place of the "href" prop for providing the URL for the page.*/}
 						{/*For capstone*/}
-						<Nav.Link as={ NavLink } to="/products">Product Catalog</Nav.Link>
-						<Nav.Link as={ NavLink } to="/products/addProduct">Admin Dashboard</Nav.Link>
+						<Nav.Link as={ NavLink } to="/products/dashboard">Admin Dashboard</Nav.Link>
 
 						{ (user.id !== null) ?
 							<><Nav.Link as={ NavLink } to="/logout">Logout</Nav.Link>
 							{/*When clicked, should redirect to checkout page which contains the list of products from users checkout array*/}
-						<Nav.Link as={ NavLink } to="/cart">
-							<img className="cartIcon" src="https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_shoppictcart_1484336529.png" />
-						</Nav.Link>	</>
+							</>
 							:
 							<>
 								<Nav.Link as={ NavLink } to="/login">Login</Nav.Link>
 								<Nav.Link as={ NavLink } to="/register">Register</Nav.Link>
 							</>
 						}
-
 									
 					</Nav>
 				</Navbar.Collapse>
