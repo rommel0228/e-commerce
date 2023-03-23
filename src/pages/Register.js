@@ -27,7 +27,6 @@ export default function Register(){
 
 	// Function to simulate user registration
 	function registerUser(e) {
-		// Prevents page redirection via form submission
 		e.preventDefault();
 
 		fetch(`${process.env.REACT_APP_API_URL}/users/checkEmail`, {
@@ -65,7 +64,6 @@ export default function Register(){
 	                    firstName: firstName,
 	                    lastName: lastName,
 	                    email: email,
-	                    // mobileNo: mobileNo,
 	                    password: password1
 	                })
 	            })
@@ -107,8 +105,11 @@ export default function Register(){
 	    })
 	}
 
+	//Sets submit button to true if conidtions are met
+		// 1. All fields must contain a string input
+		// 2. Password character length must be greater than or equal to 8
+		// 3. Password1 and password to must be the same
 	useEffect(() => {
-
 		if((email !== '' && 
 			password1.length >= 8 && 
 			password2 !== '' && 
@@ -163,23 +164,11 @@ export default function Register(){
 	          We'll never share your email with anyone else.
 	        </Form.Text>
 	      </Form.Group>
-
-	{/*      <Form.Group controlId="mobileNo">
-	          <Form.Label>Mobile Number</Form.Label>
-	          <Form.Control 
-	              type="text" 
-	              placeholder="Enter Mobile Number"
-	              value={mobileNo} 
-	              onChange={e => setMobileNo(e.target.value)}
-	              required
-	          />
-	      </Form.Group>*/}
-
 	      <Form.Group className="mb-3" controlId="password1">
 	        <Form.Label>Password</Form.Label>
 	        <Form.Control 
 	        	type="password" 
-	        	placeholder="Password"
+	        	placeholder="Enter a password with 8 or more characters"
 	        	value={ password1 }
 	        	onChange={e => setPassword1(e.target.value)} 
 	        	required/>

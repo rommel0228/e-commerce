@@ -1,14 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ProductCard from '../components/ProductCard';
-
+import UserContext from '../UserContext';
 
 export default function Products(){
+	const { user } = useContext(UserContext);
 
 	const [ product, setProducts ] = useState([]);
 
-	useEffect(() => {
+	function url(){
+		if (user.isAdmin === true) {
+			return 'http://localhost:4000/products/all/'
+		} else if (user.isAdmin === false) {
+			return 'http://localhost:4000/products/allactive/'
+		}
+	};
 
-		fetch(`http://localhost:4000/products/allactive/`)
+	useEffect(() => {
+		fetch(url())
 		.then(res => res.json())
 		.then(data=> {
 
@@ -22,9 +30,7 @@ export default function Products(){
 		})
 	}, []);
 
-	
 
-	
 	return (
 		<>
 			{ product }

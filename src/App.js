@@ -17,6 +17,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Products from './pages/Products';
+import AdminDashboard from './pages/AdminDashboard';
 import Register from './pages/Register';
 
 
@@ -69,6 +70,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />}/>
             <Route path="/products" element={<Products />}/>
+            <Route path="/products/addProduct" element={<AdminDashboard />}/>
             <Route path="*" element={<Error />} />
           </Routes>
         </Container>

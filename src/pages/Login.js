@@ -91,8 +91,6 @@ export default function Login() {
     }
 
     const retrieveUserDetails = (token) => {
-
-
     	// The token will be sent as part of the request's header information
     	// We put "Bearer" in front of the token to follow implementation standards for JWTs
     	fetch('http://localhost:4000/users/details', {
@@ -129,7 +127,7 @@ export default function Login() {
     return (
 
     	(user.id !== null) ?
-    		<Navigate to="/products"/>
+    		<Navigate to="/"/>
     	:
 		    <Form onSubmit={e => authenticate(e)}>
 		        <Form.Group className="mb-3" controlId="userEmail">
