@@ -9,99 +9,92 @@ import ProductCardAdmin from './ProductCardAdmin'
 
 export default function UpdateProductAdmin() {
 
-	// The "useParams" hook allows us to retrieve the productId passed via the URL
-	const { productId } = useParams();
-
 	const { user } = useContext(UserContext);
-
-	// Allows us to gain access to methods that will allow us to redirect a user to a different page after enrolling a course
-	//an object with methods to redirect the user
 	const navigate = useNavigate();
 
-	const [ name, setName ] = useState("");
-	const [ description, setDescription ] = useState("");
-	const [ price , setPrice ] = useState(0);
+	const {productId} = useParams();
 
-	const enroll = (productId) => {
-		fetch(`http://localhost:4000/users/enroll`,
-		{
-			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${localStorage.getItem('token')}`
-			},
-			body: JSON.stringify({
-				courseId: courseId
-			})
-		})
-		.then(res => res.json())
-		.then(data => {
+	// State hooks to store the values of the input fields
+	// getters are variables that store data (from setters)
+	// setters are function that sets the data (for the getters)
+	const [name, setName] = useState();
+	const [description, setDescription] = useState('');
+	const [price, setPrice] = useState('');
 
-			console.log(data);
+	// State to determine whether submit button is enabled or not
+	const [isActive, setIsActive] = useState(false);
 
-			if (data === true) {
+	console.log(name);
+	console.log(description);
+	console.log(price);
 
-				Swal.fire({
-					title: "Successfully enrolled",
-					icon: 'success',
-					text: "You have successfully enrolled for this course."
-				});
 
-				// The navigate hook will allow us to navigate and redirect the user back to the courses page programmatically instead of using a component.
-				navigate("/courses");
+	function addProduct(e) {
+		e.preventDefault();
 
-			} else {
-
-				Swal.fire({
-					title: "Something went wrong",
-					icon: "error",
-					text: "Please try again."
-				});
-			}
-		});
-	}
-
-	useEffect(() => {
-
-		console.log(productId);
-
-		fetch(`http://localhost:4000/product/${productId}`)
-		.then(res => res.json())
-		.then(data => {
-
-			console.log(data);
-
-			setName(data.name);
-			setDescription(data.description);
-			setPrice(data.price);
-		})
-
-	}, [ productId ]);
+	fetch(`${process.env.REACT_APP_API_URL}/products/addProduct`, {
+		    method: "POST",
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({
+		        name: name,
+		        description: description,
+		        price: price
+		    })
+	})
 
 	return (
 
-		<Container className="mt-5">
-			<Row>
-				<Col lg={{ span: 5, offset: 3}}>
-					<Card className="my-3">
-					    <Card.Body>
-					        <Card.Title>{ name }</Card.Title>
-					        <Card.Subtitle>Description:</Card.Subtitle>
-					        <Card.Text>{ description }</Card.Text>
-					        <Card.Subtitle>Price:</Card.Subtitle>
-					        <Card.Text>Php { price }</Card.Text>
-					        <Card.Subtitle>Class Schedule</Card.Subtitle>
-					        <Card.Text>8 am - 5 pm</Card.Text>
-					        { user.id !== null ? 
-					        		<Button variant="primary" block onClick={() => enroll(productId)}>Enroll</Button>
-					        	: 
-					        		<Link className="btn btn-danger btn-block" to="/login">Log in to Enroll</Link>
-					        }
-					    </Card.Body>
-					</Card>
-				</Col>
-			</Row>
-		</Container>
-	)
+			(user.id !== null && user.isAdmin === true) ?
+					<Form onSubmit={(e) => addProduct(e)}>
+						<Form.Group controlId="name">
+						    <Form.Label>Product Name</Form.Label>
+						    <Form.Control 
+						        type="text" 
+						        placeholder=`${name}`
+						        value={name} 
+						        onChange={e => setName(e.target.value)}
+						        required
+						    />
+						</Form.Group>
+
+						<Form.Group controlId="description">
+						    <Form.Label>Product Description</Form.Label>
+						    <Form.Control 
+						    	as="textarea"
+						        type="text" 
+						        placeholder=`${description}`
+						        value={ description } 
+						        onChange={e => setDescription(e.target.value)}
+						        required
+						    />
+						</Form.Group>
+
+				      <Form.Group className="mb-3" controlId="price">
+				        <Form.Label>Product Price</Form.Label>
+				        <Form.Control 
+				        	type="number" 
+				        	placeholder="Enter product price"
+				        	value=`${price}`
+				        	onChange={e => setPrice(e.target.value)}
+				        	required/>
+				      </Form.Group>
+
+				      { isActive ?
+				  			<Button variant="primary" type="submit" id="submitBtn">
+				  			  Submit
+				  			</Button>
+				  			:
+				  			<Button variant="danger" type="submit" id="submitBtn" disabled>
+				  			  Submit
+				  			</Button>
+				  		}
+				    </Form>
+				    :
+				    <p> You are not authorized to access this page</p>
+
+
+				)
 
 }

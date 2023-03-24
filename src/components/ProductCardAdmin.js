@@ -1,11 +1,47 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Container, Form, Card, Button, Row, Col } from 'react-bootstrap';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import UserContext from '../UserContext';
 
-import {Row, Col, Card, Button} from 'react-bootstrap';
 
 export default function ProductCardAdmin({product}){
 
+
+	const { user } = useContext(UserContext);
+
 	const { _id, name, description, price } = product;
+
+	function activateProduct(e) {
+		e.preventDefault();
+	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}`, {
+		    method: "PUT",
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({
+		        isActive: true
+		    })
+	});
+	}
+
+	function archiveProduct(e) {
+		e.preventDefault();
+	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}`, {
+		    method: "PUT",
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({
+		        isActive: false
+		    })
+	});
+
+	}
 	return (
+		(user.isAdmin === true) ?
+
+
 		<Col className="productCard p-2">
 			<a className="clickableProdCard" href="#"> 
 			<Card id="productCardItem"style={{width: '18rem', height: "25rem" }}>
@@ -18,14 +54,19 @@ export default function ProductCardAdmin({product}){
                 <Card.Text>{ price }</Card.Text>
                 <Link className="btn btn-primary" to={`/products/${_id}`}> Edit Details</Link>
 
-             	{(product.isActive === true)?
-                <Link className="btn btn-primary" to={`/products/${_id}`}>Activate</Link>
+             	{(product.isActive === false)?
+                <Button className="btn btn-primary" onClick={(e) => activateProduct(_id)}>Activate</Button>
                 :
-                <Link className="btn btn-primary" to={`/products/${_id}`}>Archive</Link>
+                <Button className="btn btn-primary" onClick={(e) => archiveProduct(_id}}>Archive</Button>
             	}
             </Card.Body>
 			</Card>
 			</a>
 		</Col>
+
+	:
+	<p>You dont have access to this page </p>
+
+	
 	)
 }

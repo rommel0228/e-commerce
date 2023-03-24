@@ -11,8 +11,8 @@ import './App.css';
 // (user-defined) components imports (alphabetical or according file structure)
 import AppNavbar from './components/AppNavbar';
 import Courses from './pages/Courses';
-import CourseView from './components/CourseView';
-import UpdateProductAdmin from './components/UpdateProductAdmin';
+import ProductView from './components/ProductView';
+/*import UpdateProductAdmin from './components/UpdateProductAdmin';*/
 import Error from './pages/Error';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -65,9 +65,9 @@ function App() {
           {/*The `Routes` component holds all our Route components. It selects which `Route` component to show based on the URL Endpoint. For example, when the `/courses` is visited in the web browser, React.js will show the `Courses` component to us.*/}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/courses/:courseId" element={<CourseView />} />
-            <Route path="/products/:productId" element={<UpdateProductAdmin />} />
+            {/*<Route path="/courses" element={<Courses />} />*/}
+            <Route path="/products/:productId" element={<ProductView />} />
+            {/*<Route path="/products/:productId" element={<UpdateProductAdmin />} />*/}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />}/>
