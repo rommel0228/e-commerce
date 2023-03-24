@@ -51,9 +51,24 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(user);
-    console.log(localStorage);
-  }, [user])
+    fetch(`http://localhost:4000/users/details`,{
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      console.log(data)
+
+      setUser({
+        id: data._id,
+        isAdmin: data.isAdmin
+      })
+    });
+  }, [])
+
 
   return (
 

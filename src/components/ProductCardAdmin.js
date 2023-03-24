@@ -7,14 +7,12 @@ import UserContext from '../UserContext';
 
 export default function ProductCardAdmin({product}){
 
-
 	const { user } = useContext(UserContext);
 
 	const { _id, name, description, price } = product;
 
 	function activateProduct(e) {
-		e.preventDefault();
-	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}`, {
+	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}/activate`, {
 		    method: "PUT",
 		    headers: {
 		        'Content-Type': 'application/json'
@@ -22,12 +20,33 @@ export default function ProductCardAdmin({product}){
 		    body: JSON.stringify({
 		        isActive: true
 		    })
-	});
+	})
+	.then(res => res.json())
+	.then(data => {
+		console.log(data);
+
+		if (data === true) {
+					window.location.reload(true)
+	                    Swal.fire({
+	                        title: 'Success',
+	                        icon: 'success',
+	                        text: 'You have successfully activated a product'
+	                    });
+
+	                } else {
+
+	                    Swal.fire({
+	                        title: 'Something wrong',
+	                        icon: 'error',
+	                        text: 'Please try again.'   
+	                    });
+	                }
+
+	})
 	}
 
 	function archiveProduct(e) {
-		e.preventDefault();
-	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}`, {
+	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}/archive`, {
 		    method: "PUT",
 		    headers: {
 		        'Content-Type': 'application/json'
@@ -35,12 +54,33 @@ export default function ProductCardAdmin({product}){
 		    body: JSON.stringify({
 		        isActive: false
 		    })
-	});
+	})
+	.then(res => res.json())
+	.then(data => {
+		console.log(data);
+
+		if (data === true) {
+			window.location.reload(true)
+	                    Swal.fire({
+	                        title: 'Success',
+	                        icon: 'success',
+	                        text: 'You have successfully archived a product'
+	                    });
+
+	                } else {
+
+	                    Swal.fire({
+	                        title: 'Something wrong',
+	                        icon: 'error',
+	                        text: 'Please try again.'   
+	                    });
+	                }
+
+	})
 
 	}
 	return (
 		(user.isAdmin === true) ?
-
 
 		<Col className="productCard p-2">
 			<a className="clickableProdCard" href="#"> 
@@ -55,9 +95,9 @@ export default function ProductCardAdmin({product}){
                 <Link className="btn btn-primary" to={`/products/${_id}`}> Edit Details</Link>
 
              	{(product.isActive === false)?
-                <Button className="btn btn-primary" onClick={(e) => activateProduct(_id)}>Activate</Button>
+                <Button onClick={(e) => activateProduct(_id)}>Activate</Button>
                 :
-                <Button className="btn btn-primary" onClick={(e) => archiveProduct(_id}}>Archive</Button>
+                <Button  onClick={(e) => archiveProduct(_id)}>Archive</Button>
             	}
             </Card.Body>
 			</Card>
