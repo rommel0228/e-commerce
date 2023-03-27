@@ -10,6 +10,8 @@ export default function Error() {
     }
     
     return (
+        <div className="vh-100">
         <Banner data={data}/>
+        </div>
     )
 }

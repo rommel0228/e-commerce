@@ -7,16 +7,8 @@ export default function Products(){
 
 	const [ product, setProducts ] = useState([]);
 
-	function url(){
-		if (user.isAdmin === true) {
-			return 'http://localhost:4000/products/all/'
-		} else if (user.isAdmin === false) {
-			return 'http://localhost:4000/products/allactive/'
-		}
-	};
-
 	useEffect(() => {
-		fetch(url())
+		fetch(`${process.env.REACT_APP_API_URL}/products/allactive/`)
 		.then(res => res.json())
 		.then(data=> {
 
@@ -32,8 +24,8 @@ export default function Products(){
 
 
 	return (
-		<>
+		<div className="text-center m-5">
 			{ product }
-		</>
+		</div>
 	)
 }

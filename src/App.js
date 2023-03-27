@@ -10,7 +10,6 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 // (user-defined) components imports (alphabetical or according file structure)
 import AppNavbar from './components/AppNavbar';
-import Courses from './pages/Courses';
 import ProductView from './components/ProductView';
 /*import UpdateProductAdmin from './components/UpdateProductAdmin';*/
 import Error from './pages/Error';
@@ -51,7 +50,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/details`,{
+    fetch(`${process.env.REACT_APP_API_URL}/users/details`,{
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -60,19 +59,16 @@ function App() {
     .then(res => res.json())
     .then(data => {
 
-      console.log(data)
-
       setUser({
         id: data._id,
-        isAdmin: data.isAdmin
+        isAdmin: data.isAdmin,
+        firstName:data.firstName
       })
     });
   }, [])
 
 
   return (
-
-    // The `BrowserRouter` component will enable us to simulate page navigation by synchronizing the shown content and the shown URL in the web browser.
     <UserProvider value={{ user, setUser, unsetUser}}>
       <Router>      
         <Container fluid>   
@@ -93,8 +89,7 @@ function App() {
         </Container>
       </Router>
 
-    </UserProvider>
-   
+    </UserProvider> 
   );
 }
 

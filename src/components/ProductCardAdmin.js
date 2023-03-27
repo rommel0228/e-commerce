@@ -9,7 +9,7 @@ export default function ProductCardAdmin({product}){
 
 	const { user } = useContext(UserContext);
 
-	const { _id, name, description, price } = product;
+	const { _id, name, description, price, stocks, image } = product;
 
 	function activateProduct(e) {
 	fetch(`${process.env.REACT_APP_API_URL}/products/${_id}/activate`, {
@@ -26,23 +26,20 @@ export default function ProductCardAdmin({product}){
 		console.log(data);
 
 		if (data === true) {
-					window.location.reload(true)
-	                    Swal.fire({
-	                        title: 'Success',
-	                        icon: 'success',
-	                        text: 'You have successfully activated a product'
-	                    });
+	        window.location.reload(true)
+        } else {
 
-	                } else {
+            Swal.fire({
+                title: 'Something wrong',
+                icon: 'error',
+                text: 'Please try again.'   
+            });
+        }
 
-	                    Swal.fire({
-	                        title: 'Something wrong',
-	                        icon: 'error',
-	                        text: 'Please try again.'   
-	                    });
-	                }
 
 	})
+
+	
 	}
 
 	function archiveProduct(e) {
@@ -60,45 +57,53 @@ export default function ProductCardAdmin({product}){
 		console.log(data);
 
 		if (data === true) {
-			window.location.reload(true)
-	                    Swal.fire({
-	                        title: 'Success',
-	                        icon: 'success',
-	                        text: 'You have successfully archived a product'
-	                    });
+            window.location.reload(true)
 
-	                } else {
+        } else {
 
-	                    Swal.fire({
-	                        title: 'Something wrong',
-	                        icon: 'error',
-	                        text: 'Please try again.'   
-	                    });
-	                }
-
+            Swal.fire({
+                title: 'Something wrong',
+                icon: 'error',
+                text: 'Please try again.'   
+            });
+        }
 	})
-
 	}
 	return (
 		(user.isAdmin === true) ?
 
 		<Col className="productCard p-2">
 			<a className="clickableProdCard" href="#"> 
-			<Card id="productCardItem"style={{width: '18rem', height: "25rem" }}>
-			      <Card.Img className="productImage" variant="top" src="https://th.bing.com/th/id/R.59d088aed8128144d04ae33c39d5651b?rik=S3bII65P3pcbmg&riu=http%3a%2f%2fcdn.playbuzz.com%2fcdn%2ff5f49f57-ad67-4272-b0f7-9aeb9f9e707e%2f2a28b81f-e697-437c-82b4-ddbfc8a6418c.jpg&ehk=kqtOlg6e%2bmzEB6fGrBcdGnpVnHgne3JpMtR18x6%2fhkY%3d&risl=&pid=ImgRaw&r=0"/>
+			<Card id="productCardItem" style={{width: '18rem', height: "25rem" }}>
+			      <Card.Img className="productImage" variant="top" src={image}/>
 			      <Card.Body>
                 <Card.Title>{ name }</Card.Title>
-                <Card.Subtitle>Description:</Card.Subtitle>
                 <Card.Text>{ description }</Card.Text>
-                <Card.Subtitle>Price:</Card.Subtitle>
-                <Card.Text>{ price }</Card.Text>
-                <Link className="btn btn-primary" to={`/products/${_id}`}> Edit Details</Link>
-
-             	{(product.isActive === false)?
-                <Button onClick={(e) => activateProduct(_id)}>Activate</Button>
-                :
-                <Button  onClick={(e) => archiveProduct(_id)}>Archive</Button>
-            	}
+                <div className="d-flex mx-1 px-3">
+                	<Col>
+                	<p>Price: { price }</p>
+                	</Col>
+                	<Col>
+                	<p>Stocks: { stocks }</p>
+                	</Col>
+                </div>
+                <div className="d-flex justify-content-center">
+                	<Link className="mx-2" to={`/products/${_id}`}>
+                		<Button variant="outline-success" className="push" > Edit</Button>
+                	</Link>
+             		{(product.isActive === false)?
+             		<div className="mx-2">
+                		<Button variant="outline-success" className="push" onClick={(e) => activateProduct(_id)}>Activate</Button>
+                	</div>
+                	:
+                	<div className="mx-2">
+               		 	<Button variant="outline-success" className="push" onClick={(e) => archiveProduct(_id)}>Archive</Button>
+               		</div>
+            		}
+            		<Link className="mx-2" to={`/products/${_id}`}>
+                		<Button variant="outline-success" className="push">Delete</Button>
+                	</Link>
+            	</div>
             </Card.Body>
 			</Card>
 			</a>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Container, Card, Button, Row, Col } from 'react-bootstrap';
+import { Container, Form, Card, Button, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
@@ -17,9 +17,11 @@ export default function UpdateProductAdmin() {
 	// State hooks to store the values of the input fields
 	// getters are variables that store data (from setters)
 	// setters are function that sets the data (for the getters)
-	const [name, setName] = useState();
+	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
+	const [stocks, setStocks] = useState('');
+	const [image, setImage] = useState('');
 
 	// State to determine whether submit button is enabled or not
 	const [isActive, setIsActive] = useState(false);
@@ -27,32 +29,35 @@ export default function UpdateProductAdmin() {
 	console.log(name);
 	console.log(description);
 	console.log(price);
+	console.log(stocks);
+	console.log(image)
 
-
-	function addProduct(e) {
+	function updateProduct(e) {
 		e.preventDefault();
 
-	fetch(`${process.env.REACT_APP_API_URL}/products/addProduct`, {
-		    method: "POST",
+	fetch(`${process.env.REACT_APP_API_URL}/products/:productId`, {
+		    method: "PUT",
 		    headers: {
 		        'Content-Type': 'application/json'
 		    },
 		    body: JSON.stringify({
 		        name: name,
 		        description: description,
-		        price: price
+		        price: price,
+		        image: image,
+		        stocks:stocks
 		    })
 	})
+	}
 
 	return (
 
 			(user.id !== null && user.isAdmin === true) ?
-					<Form onSubmit={(e) => addProduct(e)}>
+					<Form onSubmit={(e) => updateProduct(e)}>
 						<Form.Group controlId="name">
 						    <Form.Label>Product Name</Form.Label>
 						    <Form.Control 
 						        type="text" 
-						        placeholder=`${name}`
 						        value={name} 
 						        onChange={e => setName(e.target.value)}
 						        required
@@ -64,7 +69,6 @@ export default function UpdateProductAdmin() {
 						    <Form.Control 
 						    	as="textarea"
 						        type="text" 
-						        placeholder=`${description}`
 						        value={ description } 
 						        onChange={e => setDescription(e.target.value)}
 						        required
@@ -75,19 +79,37 @@ export default function UpdateProductAdmin() {
 				        <Form.Label>Product Price</Form.Label>
 				        <Form.Control 
 				        	type="number" 
-				        	placeholder="Enter product price"
-				        	value=`${price}`
+				        	value= {price}
 				        	onChange={e => setPrice(e.target.value)}
 				        	required/>
 				      </Form.Group>
 
+				      <Form.Group className="mb-3" controlId="price">
+				      <Form.Label>Stocks</Form.Label>
+				      <Form.Control className="input-bg"
+				        	type="number" 
+				        	value={ stocks }
+				        	onChange={e => setStocks(e.target.value)}
+				        	required/>
+				      </Form.Group>
+
+				      <Form.Group className="mb-3" controlId="price">
+				      <Form.Label>Image</Form.Label>
+				      <Form.Control className="input-bg"
+				        	type="text" 
+				        	value={ image }
+				        	onChange={e => setImage(e.target.value)}
+				        	required/>
+				      </Form.Group>
+
+
 				      { isActive ?
 				  			<Button variant="primary" type="submit" id="submitBtn">
-				  			  Submit
+				  			  Update
 				  			</Button>
 				  			:
 				  			<Button variant="danger" type="submit" id="submitBtn" disabled>
-				  			  Submit
+				  			  Update
 				  			</Button>
 				  		}
 				    </Form>

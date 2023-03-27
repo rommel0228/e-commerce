@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col} from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -31,7 +31,7 @@ export default function Login() {
             // fetch('url', {options})
             // .then(res => res.json())
             // .then(data => {})
-        fetch('http://localhost:4000/users/login',
+        fetch(`${process.env.REACT_APP_API_URL}/users/login`,
         {
         	method: 'POST',
         	headers: {
@@ -68,6 +68,7 @@ export default function Login() {
         			title: "Authentication Failed",
         			icon: "error",
         			text: "Check your login credentials and try again."
+
         		});
         	}
         });
@@ -93,7 +94,7 @@ export default function Login() {
     const retrieveUserDetails = (token) => {
     	// The token will be sent as part of the request's header information
     	// We put "Bearer" in front of the token to follow implementation standards for JWTs
-    	fetch('http://localhost:4000/users/details', {
+    	fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
     		headers: {
     			Authorization: `Bearer ${ token }`
     		}
@@ -106,7 +107,8 @@ export default function Login() {
     		// Changes the global "user" state to store the "id" and the "isAdmin" property of the user which will be used for validation across the whole application
     		setUser({
     			id: data._id,
-    			isAdmin: data.isAdmin
+    			isAdmin: data.isAdmin,
+    			firstName: data.firstName
     		})
     	})
     };
@@ -129,9 +131,13 @@ export default function Login() {
     	(user.id !== null) ?
     		<Navigate to="/"/>
     	:
+    	<Row className="d-flex col-10 m-auto vh-100">
+    	<Col className="my-5 py-3">
+    	<div className="ms-auto col-10">
+    		<h1 className="text-light">Login</h1>
 		    <Form onSubmit={e => authenticate(e)}>
 		        <Form.Group className="mb-3" controlId="userEmail">
-		            <Form.Label>Email address</Form.Label>
+		            <Form.Label className="text-light" >Email address</Form.Label>
 		            <Form.Control 
 		                type="email" 
 		                placeholder="Enter email"
@@ -142,7 +148,7 @@ export default function Login() {
 		        </Form.Group>
 
 		        <Form.Group className="mb-3" controlId="password">
-		            <Form.Label>Password</Form.Label>
+		            <Form.Label className="text-light">Password</Form.Label>
 		            <Form.Control 
 		                type="password" 
 		                placeholder="Password"
@@ -162,5 +168,12 @@ export default function Login() {
 		            </Button>
 		        }
 		    </Form>
+		</div>
+		</Col>
+		<Col className="my-5 py-3">
+		<h2 className="text-light">Hi there! <br/> Please login and check our available products you truly deserve.</h2>
+		<h4 className="text-light">Enjoy shopping with just few clicks away.</h4> 
+		</Col>
+		</Row>
 	)
 }

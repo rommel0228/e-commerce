@@ -4,18 +4,9 @@ import Highlights from '../components/Highlights';
 
 export default function Home() {
 
-	const data = {
-	    title: "Zuitt Coding Bootcamp",
-	    content: "Opportunities for everyone, everywhere",
-	    destination: "/courses",
-	    label: "Enroll now!"
-	}
-
 	return (
-		<>
-			<Banner data={ data } />
-			<Highlights />
-			{/*<CourseCard />*/}
-		</>
+		<div className="vh-100">
+		
+		</div>
 	)
 }

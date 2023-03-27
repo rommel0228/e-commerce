@@ -18,9 +18,13 @@ export default function ProductView() {
 	const navigate = useNavigate();
 
 	const [ name, setName ] = useState()
-	const [ description, setDescription ] = useState("");
+	const [ description, setDescription ] = useState();
 	const [ price , setPrice ] = useState(0);
-	const [isActive, setIsActive] = useState(false);
+	const [ quantity , setQuantity ] = useState(3);
+	const [ stocks, setStocks] = useState();
+	const [ totalAmount, setTotalAmount ] = useState();
+	const [ image, setImage] = useState()
+	const [ isActive, setIsActive ] = useState(false);
 
 	function editProduct(e) {
 			e.preventDefault();
@@ -33,7 +37,10 @@ export default function ProductView() {
 			    body: JSON.stringify({
 			        name: name,
 			        description: description,
-			        price: price
+			        price: price,
+			        image: image,
+			        stocks: stocks
+
 			    })
 		})
 		.then(res => res.json())
@@ -67,7 +74,7 @@ export default function ProductView() {
 
 		console.log(productId);
 
-		fetch(`http://localhost:4000/products/${productId}`)
+		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
 
@@ -76,6 +83,8 @@ export default function ProductView() {
 			setName(data.name);
 			setDescription(data.description);
 			setPrice(data.price);
+			setStocks(data.stocks);
+			setImage(data.image)
 		})
 
 	}, [ productId ]);
@@ -91,15 +100,56 @@ export default function ProductView() {
 	}
 	}, [name, description, price]);
 
+	function addToCart(e) {
+
+		fetch(`${process.env.REACT_APP_API_URL}/orders/createOrder`, {
+			    method: "POST",
+			    headers: {
+			        'Content-Type': 'application/json'
+			    },
+			    body: JSON.stringify({
+			        userId: user.id,
+			        productId: productId,
+			        price: price,
+			        quantity: quantity,
+			        totalAmount: price*quantity
+			    })
+		})
+		.then(res => res.json())
+		.then(data => {
+
+            console.log(data);
+
+            if (data === true) {
+                Swal.fire({
+                    title: 'Registration successful',
+                    icon: 'success',
+                    text: 'Welcome to Zuitt!'
+                });
+
+            } else {
+
+                Swal.fire({
+                    title: 'Something wrong',
+                    icon: 'error',
+                    text: 'Please try again.'   
+                });
+            }
+
+		});
+	}
+
 	return (
 
 		(user.id !== null && user.isAdmin === true) ?
-		<Form onSubmit={(e) => editProduct(e)}>
+		<div className="vh-100">
+		<h1 className="text-center mt-5 text-light">Edit/Update A Product</h1>
+
+		<Form className="mx-auto col-8 mb-3" onSubmit={(e) => editProduct(e)}>
 			<Form.Group controlId="name">
 			    <Form.Label>Product Name</Form.Label>
 			    <Form.Control 
 			        type="text" 
-			        placeholder="Hello"
 			        value={name} 
 			        onChange={e => setName(e.target.value)}
 			        required
@@ -111,7 +161,6 @@ export default function ProductView() {
 			    <Form.Control 
 			    	as="textarea"
 			        type="text" 
-			        placeholder="Hello"
 			        value={ description } 
 			        onChange={e => setDescription(e.target.value)}
 			        required
@@ -122,61 +171,69 @@ export default function ProductView() {
 	        <Form.Label>Product Price</Form.Label>
 	        <Form.Control 
 	        	type="number" 
-	        	placeholder= "Hello"
 	        	value={ price }
 	        	onChange={e => setPrice(e.target.value)}
 	        	required/>
 	      </Form.Group>
 
+	      <Form.Group className="mb-3" controlId="price">
+	      <Form.Label>Stocks</Form.Label>
+	      <Form.Control className="input-bg"
+	        	type="number" 
+	        	value={ stocks }
+	        	onChange={e => setStocks(e.target.value)}
+	        	required/>
+	      </Form.Group>
+
+	      <Form.Group className="mb-3" controlId="price">
+	      <Form.Label>Image</Form.Label>
+	      <Form.Control className="input-bg"
+	        	type="text" 
+	        	value={ image }
+	        	onChange={e => setImage(e.target.value)}
+	        	required/>
+	      </Form.Group>
+
 	      { isActive ?
 	  			<Button variant="primary" type="submit" id="submitBtn">
-	  			  Submit
+	  			  Update
 	  			</Button>
 	  			:
 	  			<Button variant="danger" type="submit" id="submitBtn" disabled>
-	  			  Submit
+	  			  Update
 	  			</Button>
 	  		}
 	    </Form>
+	    </div>
 	    :
-	    <Col className="productCard p-2">
-			<a className="clickableProdCard" href="#"> 
-			<Card id="productCardItem"style={{width: '18rem', height: "25rem" }}>
-			      <Card.Img className="productImage" variant="top" src="https://th.bing.com/th/id/R.59d088aed8128144d04ae33c39d5651b?rik=S3bII65P3pcbmg&riu=http%3a%2f%2fcdn.playbuzz.com%2fcdn%2ff5f49f57-ad67-4272-b0f7-9aeb9f9e707e%2f2a28b81f-e697-437c-82b4-ddbfc8a6418c.jpg&ehk=kqtOlg6e%2bmzEB6fGrBcdGnpVnHgne3JpMtR18x6%2fhkY%3d&risl=&pid=ImgRaw&r=0"/>
-			      <Card.Body>
-                <Card.Title>{ name }</Card.Title>
-                <Card.Subtitle>Description:</Card.Subtitle>
-                <Card.Text>{ description }</Card.Text>
-                <Card.Subtitle>Price:</Card.Subtitle>
-                <Card.Text>{ price }</Card.Text>
+	    // Will only be display if the user is not an admin
+	    <div className="vh-100 text-center">
+	    <Col className="mx-auto productCard p-2">
+			<Card style={{width: '18rem', height: "25rem" }}>
+			    <Card.Img className="productImage" variant="top" src={image}/>
+			    <Card.Body>
+                	<Card.Title>{ name }</Card.Title>
+                	<Card.Subtitle>Description:</Card.Subtitle>
+                	<Card.Text>{ description }</Card.Text>
+                	<div className="d-flex mb-3">
+                		<Card.Subtitle className="mx-auto">Price: Php { price }</Card.Subtitle>
+                		<Card.Subtitle className="mx-auto">Stocks:{ stocks }</Card.Subtitle>
+                	</div>
+                	{(user.id !== null)?
+                		<>
+                		<Button className="mx-2 btn-success">Checkout</Button>
+                		<Button className="mx-2 btn-success" onClick={e => addToCart(productId)}>Add to cart</Button>
+                		</>
+                		:
+                		<>
+                		<Button as={Link} className="mx-2 btn-success" to="/login">Login</Button>
+                		</>
+
+                	}
             </Card.Body>
 			</Card>
-			</a>
 		</Col>
-
-
-		/*<Container className="mt-5">
-			<Row>
-				<Col lg={{ span: 5, offset: 3}}>
-					<Card className="my-3">
-					    <Card.Body>
-					        <Card.Title>{ name }</Card.Title>
-					        <Card.Subtitle>Description:</Card.Subtitle>
-					        <Card.Text>{ description }</Card.Text>
-					        <Card.Subtitle>Price:</Card.Subtitle>
-					        <Card.Text>Php { price }</Card.Text>
-					        <Card.Subtitle>Class Schedule</Card.Subtitle>
-					        <Card.Text>8 am - 5 pm</Card.Text>
-					        { user.id !== null ? 
-					        		<Button variant="primary" block onClick={() => enroll(productId)}>Enroll</Button>
-					        	: 
-					        		<Link className="btn btn-danger btn-block" to="/login">Log in to Enroll</Link>
-					        }
-					    </Card.Body>
-					</Card>
-				</Col>
-			</Row>
-		</Container>*/
+		</div>
 	)
 
 }

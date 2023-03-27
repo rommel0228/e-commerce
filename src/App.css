@@ -11,6 +11,7 @@
 /*Capstone 3: Product Page*/
 .productCard{
 	display: inline-block;
+	margin-bottom: 1rem;
 }
 
 .productImage{
@@ -19,9 +20,9 @@
 }
 
 #productCardItem:hover {
-	border-color: green;
-	border-width: 3px;
-	transition: 500ms;
+	border-color: orange;
+	border-width: 4px;
+	transition: 200ms;
 }
 
 .d-block {
@@ -37,3 +38,57 @@
 .cartIcon {
 	height: 25px;
 }
+
+/*.reg-page-bg {
+	background-image: url(https://i.pinimg.com/736x/90/04/b3/9004b36f52c1898fdcb4f451028f4f4e.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
+}*/
+
+/*.content {
+	background-color: #305F72;
+	background-attachment: scroll;
+	height: 100vh;
+}*/
+
+/*.reg-page-img{
+	: url(https://i.pinimg.com/736x/90/04/b3/
+}9004b36f52c1898fdcb4f451028f4f4e.jpg);
+	background-repeat: contain;
+*/
+.reg-page-form{
+	background-color: none;
+}
+
+/*.reg-page-content {
+	display: block;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+*/
+
+.newProd {
+	background-color: #FFFFC0;
+}
+
+input[type="text"],input[type="number"], textarea[type="text"]  {
+	background-color: #white;
+}
+
+.logo {
+	height: 35px;
+}
+
+#root {
+	background-color: #305F72;
+}
+
+.prod-list-btn {
+	background-color: green;
+}
+
+.push, .prod-list-btn{
+	background-color: none;
+
+}
+

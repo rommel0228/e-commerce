@@ -11,7 +11,7 @@ export default function ProductsAdmin(){
 	const [ product, setProducts ] = useState([]);
 
 	useEffect(() => {
-		fetch('http://localhost:4000/products/all/')
+		fetch(`${process.env.REACT_APP_API_URL}/products/all/`)
 		.then(res => res.json())
 		.then(data=> {
 
@@ -28,10 +28,10 @@ export default function ProductsAdmin(){
 
 	return (
 		(user.isAdmin === true) ?
-		<>
+		<div className="text-center">
 			{ product }
-		</>
+		</div>
 		:
-		<p>You do not have access to this page </p>
+		<>You do not have access to view this page!</>
 	)
 }
