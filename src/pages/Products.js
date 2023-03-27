@@ -24,7 +24,7 @@ export default function Products(){
 
 
 	return (
-		<div className="text-center m-5">
+		<div className="text-center m-5 vh-100">
 			{ product }
 		</div>
 	)

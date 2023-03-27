@@ -10,23 +10,24 @@ export default function ProductCarousel(){
 	return (
 			<Carousel>
      			<Carousel.Item className="productBanner">
+
         		<img
-		          className="d-block w-100"
-		          src="https://backend.central.co.th/media/wysiwyg/Listpage2021/05-may/20210523_listpage_CDGadget01.jpg"
+		          className="d-block mx-auto"
+		          src="https://png.pngtree.com/thumb_back/fh260/background/20201101/pngtree-cyber-monday-sale-on-pink-gadget-light-background-image_446148.jpg"
 		          alt="First slide"
         		/>
       			</Carousel.Item>
 		      	<Carousel.Item className="productBanner">
 		        <img
-		          className="d-block w-100"
-		          src="https://d1wrxu8gicsgam.cloudfront.net/wp-content/files/django-logo-big.jpg"
+		          className="d-block mx-auto"
+		          src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/headset-ads-digital-display-design-template-f65587445212b9e1df7d1414e162913b_screen.jpg?ts=1628834079"
 		          alt="Second slide"
 		        />
 		      	</Carousel.Item>
 		      	<Carousel.Item className="productBanner">
 		        <img
-		          className="d-block w-100"
-		          src="https://res.cloudinary.com/practicaldev/image/fetch/s--zrUJwvgZ--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bupbqc9fctvw4j7r14it.png"
+		          className="d-block mx-auto"
+		          src="https://www.desktopbackground.org/download/o/2012/08/10/434307_online-shopping-revolution-its-here-zscoop_1920x1080_h.png"
 		          alt="Third slide"
 		        />
 		      	</Carousel.Item>

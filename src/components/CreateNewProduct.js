@@ -56,6 +56,8 @@ export default function CreateNewProduct() {
 	                    setName('');
 	                    setDescription('');
 	                    setPrice('');
+	                    setStocks('');
+	                    setImage('')
 
 	                    Swal.fire({
 	                        title: 'Success',

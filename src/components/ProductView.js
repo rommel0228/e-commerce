@@ -20,7 +20,7 @@ export default function ProductView() {
 	const [ name, setName ] = useState()
 	const [ description, setDescription ] = useState();
 	const [ price , setPrice ] = useState(0);
-	const [ quantity , setQuantity ] = useState(3);
+	const [ quantity , setQuantity ] = useState(1);
 	const [ stocks, setStocks] = useState();
 	const [ totalAmount, setTotalAmount ] = useState();
 	const [ image, setImage] = useState()
@@ -122,7 +122,7 @@ export default function ProductView() {
 
             if (data === true) {
                 Swal.fire({
-                    title: 'Registration successful',
+                    title: 'Checkout Successful',
                     icon: 'success',
                     text: 'Welcome to Zuitt!'
                 });
@@ -130,7 +130,7 @@ export default function ProductView() {
             } else {
 
                 Swal.fire({
-                    title: 'Something wrong',
+                    title: 'Something went wrong',
                     icon: 'error',
                     text: 'Please try again.'   
                 });
@@ -209,7 +209,7 @@ export default function ProductView() {
 	    // Will only be display if the user is not an admin
 	    <div className="vh-100 text-center">
 	    <Col className="mx-auto productCard p-2">
-			<Card style={{width: '18rem', height: "25rem" }}>
+			<Card style={{width: '18rem', height: "28rem" }}>
 			    <Card.Img className="productImage" variant="top" src={image}/>
 			    <Card.Body>
                 	<Card.Title>{ name }</Card.Title>
@@ -221,8 +221,8 @@ export default function ProductView() {
                 	</div>
                 	{(user.id !== null)?
                 		<>
-                		<Button className="mx-2 btn-success">Checkout</Button>
-                		<Button className="mx-2 btn-success" onClick={e => addToCart(productId)}>Add to cart</Button>
+                		{/*<Button className="mx-2 btn-success">Checkout</Button>*/}
+                		<Button className="mx-2 btn-success" onClick={e => addToCart(productId)}>Checkout</Button>
                 		</>
                 		:
                 		<>

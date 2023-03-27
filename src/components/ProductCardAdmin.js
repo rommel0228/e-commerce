@@ -74,14 +74,14 @@ export default function ProductCardAdmin({product}){
 
 		<Col className="productCard p-2">
 			<a className="clickableProdCard" href="#"> 
-			<Card id="productCardItem" style={{width: '18rem', height: "25rem" }}>
+			<Card id="productCardItem" style={{width: '18rem', height: "28rem" }}>
 			      <Card.Img className="productImage" variant="top" src={image}/>
 			      <Card.Body>
                 <Card.Title>{ name }</Card.Title>
                 <Card.Text>{ description }</Card.Text>
                 <div className="d-flex mx-1 px-3">
                 	<Col>
-                	<p>Price: { price }</p>
+                	<p>Php{ price }</p>
                 	</Col>
                 	<Col>
                 	<p>Stocks: { stocks }</p>
@@ -89,19 +89,19 @@ export default function ProductCardAdmin({product}){
                 </div>
                 <div className="d-flex justify-content-center">
                 	<Link className="mx-2" to={`/products/${_id}`}>
-                		<Button variant="outline-success" className="push" > Edit</Button>
+                		<Button variant="success" className="push" > Edit</Button>
                 	</Link>
              		{(product.isActive === false)?
              		<div className="mx-2">
-                		<Button variant="outline-success" className="push" onClick={(e) => activateProduct(_id)}>Activate</Button>
+                		<Button variant="success" className="push" onClick={(e) => activateProduct(_id)}>Activate</Button>
                 	</div>
                 	:
                 	<div className="mx-2">
-               		 	<Button variant="outline-success" className="push" onClick={(e) => archiveProduct(_id)}>Archive</Button>
+               		 	<Button variant="success" className="push" onClick={(e) => archiveProduct(_id)}>Archive</Button>
                		</div>
             		}
             		<Link className="mx-2" to={`/products/${_id}`}>
-                		<Button variant="outline-success" className="push">Delete</Button>
+                		<Button variant="success" className="push">Delete</Button>
                 	</Link>
             	</div>
             </Card.Body>

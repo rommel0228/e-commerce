@@ -1,12 +1,12 @@
-import Banner from '../components/Banner';
-// import CourseCard from '../components/CourseCard'; will be imported to Courses page
-import Highlights from '../components/Highlights';
+import FeaturedProductsCarousel from "../components/FeaturedProductsCarousel"
 
 export default function Home() {
 
 	return (
 		<div className="vh-100">
-		
+
+		<FeaturedProductsCarousel />
+			
 		</div>
 	)
 }

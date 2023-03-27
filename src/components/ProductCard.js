@@ -7,7 +7,7 @@ export default function ProductCard({product}){
 	const { _id, name, description, price, image, stocks } = product;
 	return (
 		<Col className="productCard px-2"> 
-			<Card id="productCardItem" style={{width: '18rem', height: "23rem" }}>
+			<Card id="productCardItem" style={{width: '18rem', height: "28rem" }}>
 			    <Card.Img className="productImage" variant="top" src={image}/>
 			    <Card.Body>
                 	<Card.Title>{ name }</Card.Title>
