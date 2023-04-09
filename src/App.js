@@ -12,6 +12,7 @@ import './App.css';
 import AppNavbar from './components/AppNavbar';
 import ProductView from './components/ProductView';
 /*import UpdateProductAdmin from './components/UpdateProductAdmin';*/
+import Cart from './pages/Cart'
 import Error from './pages/Error';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -69,9 +70,9 @@ function App() {
 
 
   return (
+    <div className="root min-vh-100">
     <UserProvider value={{ user, setUser, unsetUser}}>
-      <Router>      
-        <Container fluid>   
+      <Router>       
         <AppNavbar />     
           {/*The `Routes` component holds all our Route components. It selects which `Route` component to show based on the URL Endpoint. For example, when the `/courses` is visited in the web browser, React.js will show the `Courses` component to us.*/}
           <Routes>
@@ -80,16 +81,16 @@ function App() {
             <Route path="/products/:productId" element={<ProductView />} />
             {/*<Route path="/products/:productId" element={<UpdateProductAdmin />} />*/}
             <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />}/>
             <Route path="/products" element={<Products />}/>
             <Route path="/products/dashboard" element={<AdminDashboard />}/>
             <Route path="*" element={<Error />} />
           </Routes>
-        </Container>
       </Router>
-
-    </UserProvider> 
+    </UserProvider>
+    </div> 
   );
 }
 

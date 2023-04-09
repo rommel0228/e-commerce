@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { Form, Button, Row, Col} from 'react-bootstrap';
+import { Form, Button, Row, Col, Container} from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -131,49 +131,56 @@ export default function Login() {
     	(user.id !== null) ?
     		<Navigate to="/"/>
     	:
-    	<Row className="d-flex col-10 m-auto vh-100">
-    	<Col className="my-5 py-3">
-    	<div className="ms-auto col-10">
-    		<h1 className="text-light">Login</h1>
-		    <Form onSubmit={e => authenticate(e)}>
-		        <Form.Group className="mb-3" controlId="userEmail">
-		            <Form.Label className="text-light" >Email address</Form.Label>
-		            <Form.Control 
-		                type="email" 
-		                placeholder="Enter email"
-		                value={email}
-		    			onChange={(e) => setEmail(e.target.value)}
-		                required
-		            />
-		        </Form.Group>
+    	<Container className="vh-100">
+	    	<Row className="my-auto d-flex justify-content-center">
+		    	<Col className="my-5 mx-auto py-3
+		    		order-2 order-sm-2 order-md-1 order-lg-1 order-xl-1
+		    		col-12 col-sm-10 col-md-5 col-lg-5
+		    	">
+			    	<div className="mx-auto col-10">
+			    		<h1 className="text-light">Login</h1>
+					    <Form onSubmit={e => authenticate(e)}>
+					        <Form.Group className="mb-3" controlId="userEmail">
+					            <Form.Label className="text-light" >Email address</Form.Label>
+					            <Form.Control 
+					                type="email" 
+					                placeholder="Enter email"
+					                value={email}
+					    			onChange={(e) => setEmail(e.target.value)}
+					                required
+					            />
+					        </Form.Group>
 
-		        <Form.Group className="mb-3" controlId="password">
-		            <Form.Label className="text-light">Password</Form.Label>
-		            <Form.Control 
-		                type="password" 
-		                placeholder="Password"
-		                value={password}
-		    			onChange={(e) => setPassword(e.target.value)}
-		                required
-		            />
-		        </Form.Group>
+					        <Form.Group className="mb-3" controlId="password">
+					            <Form.Label className="text-light">Password</Form.Label>
+					            <Form.Control 
+					                type="password" 
+					                placeholder="Password"
+					                value={password}
+					    			onChange={(e) => setPassword(e.target.value)}
+					                required
+					            />
+					        </Form.Group>
 
-		        { isActive ? 
-		            <Button variant="success" type="submit" id="submitBtn">
-		                Submit
-		            </Button>
-		            : 
-		            <Button variant="danger" type="submit" id="submitBtn" disabled>
-		                Submit
-		            </Button>
-		        }
-		    </Form>
-		</div>
-		</Col>
-		<Col className="my-5 py-3">
-		<h2 className="text-light">Hi there! <br/> Please login and check our available products you truly deserve.</h2>
-		<h4 className="text-light">Enjoy shopping with just few clicks away.</h4> 
-		</Col>
-		</Row>
+					        { isActive ? 
+					            <Button variant="success" type="submit" id="submitBtn">
+					                Submit
+					            </Button>
+					            : 
+					            <Button variant="danger" type="submit" id="submitBtn" disabled>
+					                Submit
+					            </Button>
+					        }
+					    </Form>
+					</div>
+				</Col>
+				<Col className="my-auto py-1 px-5 
+					order-1 order-sm-1 order-md-2 order-lg-2 order-xl-2
+					col-12 col-sm-10 col-md-5 col-lg-5">
+					<h2 className="text-light">Hi there! <br/> Please login and check our available products you truly deserve.</h2>
+					<h4 className="text-light">Enjoy shopping with just few clicks away.</h4> 
+				</Col>
+			</Row>
+		</Container>
 	)
 }

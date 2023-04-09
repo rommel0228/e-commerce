@@ -10,14 +10,12 @@ export default function AppNavbarAdmin(){
 	const { user } = useContext(UserContext);
 
 	return (
-
 		<Navbar expand="lg">
-			<Container fluid>
 				<div className="d-flex flex-column">
-				<Navbar.Brand className="text-light" as={ Link } to="/"><strong>Technorama</strong></Navbar.Brand>
-				<p className="my-auto text-light">Welcome back, {user.firstName}!</p>
+				<Navbar.Brand className="text-light navbar-brand" as={ Link } to="/"><strong>Technorama</strong></Navbar.Brand>
+				<p className="my-auto text-light welcome-user">Welcome back, {user.firstName}!</p>
 				</div>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Toggle aria-controls="basic-navbar-nav" className="burger-button" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">
 					{/*The "as" prop allows components to be treated as if they are a different component gaining access to it's properties and functionalities.*/}
@@ -39,7 +37,6 @@ export default function AppNavbarAdmin(){
 									
 					</Nav>
 				</Navbar.Collapse>
-			</Container>
 		</Navbar>
 	)
 }

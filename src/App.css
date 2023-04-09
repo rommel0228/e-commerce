@@ -4,6 +4,16 @@
 	box-sizing: border-box;
 }
 
+
+body {
+	background: var(--color-bg);
+}
+
+:root{
+	--color-bg: #040C18;
+}
+
+
 .cardHighlight {
 	min-height: 100%;
 }
@@ -15,19 +25,23 @@
 }
 
 .productImage{
-	height: 250px;
-	width: 200px;
+	height: 160px;
+	width: 100px;
+}
+
+.viewProductImage{
+	width:15rem;
+	height: auto;
 }
 
 #productCardItem:hover {
-	border-color: orange;
+	border-color: aliceblue;
 	border-width: 4px;
 	transition: 200ms;
 }
 
 .d-block {
 	height: 30rem;
-	width: 20;
 }
 
 .clickableProdCard {
@@ -72,14 +86,15 @@
 }
 
 input[type="text"],input[type="number"], textarea[type="text"]  {
-	background-color: #white;
+	background-color: white
 }
 
 .logo {
 	height: 35px;
 }
 
-#root {
+/*Sets the bgcollor @App.js*/
+#root{
 	background-color: #305F72;
 }
 
@@ -91,4 +106,143 @@ input[type="text"],input[type="number"], textarea[type="text"]  {
 	background-color: none;
 
 }
+
+/*AppNavbarAdmin, AppNavbarNotAdmin {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+*/
+nav {
+		background-color: rgba(0,0,0,0.3);
+		padding-left: 3em ;
+		box-shadow: 2px 2px;
+}
+
+ #basic-navbar-nav, .burger-button{
+	padding-left: 2rem;
+	padding-right: 1rem;
+	margin-right: 1rem;
+}
+
+.welcome-user, .navbar-brand {
+	padding-left: 2rem;
+}
+
+.feat {
+	width: 100%;
+	height: auto;
+	image-resolution: from-image;
+}
+
+#details {
+	position: absolute;
+	bottom: 0rem;
+	left: 0rem;
+	font-family: Roboto;
+	font-weight: bold;
+	background-color: #FFAD4A;
+}
+
+#title {
+	font-size: 15px;
+	font-family: Roboto ;
+	font-weight: bold;
+	color: slategrey;
+	position: absolute;
+	top: 11rem;
+	right: 0rem;
+}
+
+#price {
+	font-size:12px;
+	font-family: Roboto;
+	font-weight: 700;
+	color: orangered;
+	position: absolute;
+	bottom: 3rem;
+	right: 4.7rem;
+}
+
+.viewProduct {
+	height: 20rem;
+
+}
+
+
+.viewProductLogin{
+	position: absolute;
+	bottom: 1rem;
+	right: 4rem;
+	padding-block: 5px;
+	color: white;
+	font-weight: bold;
+	background-color: #FFAD4A;
+	border-radius: 5px;
+}
+
+.viewProdPriceAndSold{
+	position: absolute;
+	bottom: 3rem;
+}
+
+.viewProdImg{
+	width: 90%;
+	height: auto;
+}
+.viewProdContainer{
+	border-radius: 10px;
+	box-shadow: 0 0 2rem 0.5rem;
+}
+
+.shopNow {
+	background-color: #FFAD4A;
+	padding-block: 10px;
+	border-radius: 10px;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.buyNow, .addToCart {
+	margin-left: 0rem;
+	background-color: #FFAD4A;
+	padding-block: 5px;
+	border-radius: 10px;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+	border: none}
+
+.viewProdName {
+	font-size: 25px;
+	font-family: Roboto ;
+	font-weight: bold;
+}
+
+.viewProdDesc {
+	font-size: 15px;
+	font-family: Roboto ;
+	font-weight: bold;	
+}
+
+.viewProdPrice {
+	font-size:15px;
+	font-family: Roboto;
+	font-weight: bold;
+	color: orangered;
+}
+
+.viewProdSold {
+	font-size:15px;
+	font-family: monospace;
+	font-weight: bold;
+	color: slategrey;
+}
+
+.qty-btn{
+	width: 2rem;
+	padding: 0rem;
+	border: none;
+}
+
 

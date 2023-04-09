@@ -24,9 +24,9 @@ export default function AppNavbar(){
 	//Condition that allows makes AppNavbar features different according to user roles
 	return (
 		(user.isAdmin === true) ?
-			<AppNavbarAdmin />
+			<AppNavbarAdmin/>
+
 		:
 			<AppNavbarNotAdmin />
-
 	)
 }

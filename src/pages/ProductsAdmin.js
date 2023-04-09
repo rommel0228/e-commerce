@@ -29,6 +29,7 @@ export default function ProductsAdmin(){
 	return (
 		(user.isAdmin === true) ?
 		<div className="text-center">
+		<h1 className="text-center m-5">All Products List</h1>
 			{ product }
 		</div>
 		:

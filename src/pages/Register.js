@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Row, Col, Container, Image} from 'react-bootstrap';
-import { Navigate,  useNavigate } from 'react-router-dom';
+import { Navigate,  useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
@@ -124,86 +124,93 @@ export default function Register(){
 	}, [email, password1, password2, firstName , lastName]);
 	
 	return(
-		
 		(user.id !== null) ?
 		    <Navigate to="/products" />
 		:
 		// 2-way Binding (Bnding the user input states into their corresponding input fields via the onChange JSX Event Handler)
-		<Row className="reg-page-bg col-10 m-auto container-fluid vh-100" >
-			<Col className="my-auto">
-				<Form className="reg-page-form col-10-sm col-10-md" onSubmit={(e) => registerUser(e)}>
-					<Form.Group controlId="firstName">
-				    <Form.Label>First Name</Form.Label>
-				    <Form.Control 
-				        type="text" 
-				        placeholder="Enter first name"
-				        value={firstName} 
-				        onChange={e => setFirstName(e.target.value)}
-				        required
-				    />
-					</Form.Group>
-					<Form.Group controlId="lastName">
-				    <Form.Label>Last Name</Form.Label>
-				    <Form.Control 
-				        type="text" 
-				        placeholder="Enter last name"
-				        value={lastName} 
-				        onChange={e => setLastName(e.target.value)}
-				        required
-				    />
-					</Form.Group>
+		<Container className="vh-100 mt-5">
+			<Row className="justify-content-center mx-auto my-3" >
+				<Col className=" reg-page-bg my-auto mb-5
+					order-2 order-sm-2 order-md-1 order-lg-1 order-xl-1
+					col-12 col-sm-10 col-md-5 col-lg-5">
+					<Form className="reg-page-form container-fluid " onSubmit={(e) => registerUser(e)}>
+						<Form.Group controlId="firstName">
+					    	<Form.Label className="text-light">First Name</Form.Label>
+					    	<Form.Control 
+						       	type="text" 
+						        placeholder="Enter first name"
+						        value={firstName} 
+						        onChange={e => setFirstName(e.target.value)}
+						        required
+							    />
+						</Form.Group>
 
-		      <Form.Group className="mb-3" controlId="userEmail">
-		        <Form.Label>Email address</Form.Label>
-		        <Form.Control 
-		        	type="email" 
-		        	placeholder="Enter email"
-		        	value={ email }
-		        	onChange={e => setEmail(e.target.value)}
-		        	required/>
-		        <Form.Text className="text-muted">
-		          We'll never share your email with anyone else.
-		        </Form.Text>
-		      </Form.Group>
-		      <Form.Group className="mb-3" controlId="password1">
-		        <Form.Label>Password</Form.Label>
-		        <Form.Control 
-		        	type="password" 
-		        	placeholder="Enter a password with 8 or more characters"
-		        	value={ password1 }
-		        	onChange={e => setPassword1(e.target.value)} 
-		        	required/>
-		      </Form.Group>
-		      
-		      <Form.Group className="mb-3" controlId="password2">
-		        <Form.Label>Verify Password</Form.Label>
-		        <Form.Control 
-		        	type="password" 
-		        	placeholder="Verify Password"
-		        	value={ password2 }
-		        	onChange={e => setPassword2(e.target.value)}  
-		        	required/>
-		      </Form.Group>
+						<Form.Group controlId="lastName">
+							<Form.Label className="text-light">Last Name</Form.Label>
+							<Form.Control 
+							    type="text" 
+							    placeholder="Enter last name"
+							    value={lastName} 
+							    onChange={e => setLastName(e.target.value)}
+							    required
+							    />
+						</Form.Group>
 
-		      { isActive ?
-		  			<Button variant="primary" type="submit" id="submitBtn">
-		  			  Create Account
-		  			</Button>
-		  			:
-		  			<Button variant="danger" type="submit" id="submitBtn" disabled>
-		  			  Create Account
-		  			</Button>
-		  		}
-		    </Form>
-		</Col>
-		<Col className="my-auto text-center">
-		    	<div className="container-fluid justify-content-center">
-		     	<h1>Create a new account</h1>
-			 	<h5>Already had an account? Click <a ashref="#">here</a> to log in. </h5>
-			 	<img className="container-fluid" src="https://drive.google.com/uc?export=view&id=1ku5JFKgEzuK1D_vT0UBx8btmCNEV5SUs" />
-			 	</div>
-		</Col>
-	    </Row>
+	      				<Form.Group className="mb-3" controlId="userEmail">
+	        				<Form.Label className="text-light">Email address</Form.Label>
+	        				<Form.Control 
+	        					type="email" 
+	        					placeholder="Enter email"
+	        					value={ email }
+	        					onChange={e => setEmail(e.target.value)}
+	        					required/>
+	        				<Form.Text className="text-light">
+	          						We'll never share your email with anyone else.
+	        				</Form.Text>
+	     				</Form.Group>
+
+			      		<Form.Group className="mb-3" controlId="password1">
+			        		<Form.Label className="text-light">Password</Form.Label>
+			        		<Form.Control 
+			        			type="password" 
+					        	placeholder="Enter a password with 8 or more characters"
+					        	value={ password1 }
+					        	onChange={e => setPassword1(e.target.value)} 
+					        	required/>
+			      		</Form.Group>
+			      
+			      		<Form.Group className="mb-3" controlId="password2">
+					        <Form.Label className="text-light">Verify Password</Form.Label>
+					        <Form.Control 
+					        	type="password" 
+					        	placeholder="Verify Password"
+					        	value={ password2 }
+					        	onChange={e => setPassword2(e.target.value)}  
+					        	required/>
+			      		</Form.Group>
+
+			      		{ isActive ?
+			  				<Button variant="primary" type="submit" id="submitBtn">
+			  			  		Create Account
+			  				</Button>
+			  			:
+			  				<Button variant="danger" type="submit" id="submitBtn" disabled>
+			  			  		Create Account
+			  				</Button>
+			  			}
+			    	</Form>
+				</Col>
+				<Col className="my-auto text-center 
+					order-1 order-sm-1 order-md-2 order-lg-2 order-xl-2
+					col-12 col-sm-10 col-md-5 col-lg-5">
+			    	<div className="container-fluid justify-content-center">
+			     	<h1 className="text-light">Create a new account</h1>
+				 	<h5 className="text-light">Already had an account? Click <Link to="/login">here</Link> to log in. </h5>
+				 	<img className="container-fluid" src="https://drive.google.com/uc?export=view&id=1ku5JFKgEzuK1D_vT0UBx8btmCNEV5SUs" />
+				 	</div>
+				</Col>
+		    </Row>
+	    </Container>
 	)
 
 }

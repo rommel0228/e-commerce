@@ -8,13 +8,10 @@ import UserContext from '../UserContext';
 
 export default function ProductView() {
 
-	// The "useParams" hook allows us to retrieve the courseId passed via the URL
 	const { productId } = useParams();
 
 	const { user } = useContext(UserContext);
 
-	// Allows us to gain access to methods that will allow us to redirect a user to a different page after enrolling a course
-	//an object with methods to redirect the user
 	const navigate = useNavigate();
 
 	const [ name, setName ] = useState()
@@ -22,9 +19,28 @@ export default function ProductView() {
 	const [ price , setPrice ] = useState(0);
 	const [ quantity , setQuantity ] = useState(1);
 	const [ stocks, setStocks] = useState();
-	const [ totalAmount, setTotalAmount ] = useState();
 	const [ image, setImage] = useState()
 	const [ isActive, setIsActive ] = useState(false);
+
+
+	const Increment = () => {
+		setQuantity(quantity + 1)
+	}
+
+	const Decrement = () => {
+		setQuantity(quantity + 1)
+
+		let value = 1
+		if(quantity <= value) {
+			value = 1
+		}
+		else {
+			value = quantity
+		}
+
+		setQuantity(value -1 )
+	}
+
 
 	function editProduct(e) {
 			e.preventDefault();
@@ -78,8 +94,6 @@ export default function ProductView() {
 		.then(res => res.json())
 		.then(data => {
 
-			console.log(data);
-
 			setName(data.name);
 			setDescription(data.description);
 			setPrice(data.price);
@@ -118,13 +132,11 @@ export default function ProductView() {
 		.then(res => res.json())
 		.then(data => {
 
-            console.log(data);
-
             if (data === true) {
                 Swal.fire({
-                    title: 'Checkout Successful',
+                    title: 'Successful',
                     icon: 'success',
-                    text: 'Welcome to Zuitt!'
+                    text: 'Added to cart'
                 });
 
             } else {
@@ -138,6 +150,8 @@ export default function ProductView() {
 
 		});
 	}
+
+	// function buyNow(e)
 
 	return (
 
@@ -206,34 +220,53 @@ export default function ProductView() {
 	    </Form>
 	    </div>
 	    :
-	    // Will only be display if the user is not an admin
-	    <div className="vh-100 text-center">
-	    <Col className="mx-auto productCard p-2">
-			<Card style={{width: '18rem', height: "28rem" }}>
-			    <Card.Img className="productImage" variant="top" src={image}/>
-			    <Card.Body>
-                	<Card.Title>{ name }</Card.Title>
-                	<Card.Subtitle>Description:</Card.Subtitle>
-                	<Card.Text>{ description }</Card.Text>
-                	<div className="d-flex mb-3">
-                		<Card.Subtitle className="mx-auto">Price: Php { price }</Card.Subtitle>
-                		<Card.Subtitle className="mx-auto">Stocks:{ stocks }</Card.Subtitle>
-                	</div>
-                	{(user.id !== null)?
-                		<>
-                		{/*<Button className="mx-2 btn-success">Checkout</Button>*/}
-                		<Button className="mx-2 btn-success" onClick={e => addToCart(productId)}>Checkout</Button>
-                		</>
-                		:
-                		<>
-                		<Button as={Link} className="mx-2 btn-success" to="/login">Login</Button>
-                		</>
 
-                	}
-            </Card.Body>
-			</Card>
-		</Col>
-		</div>
+	    <Container className="viewProdContainer d-flex bg-light 
+	    	 col-xl-5 col-lg-6 col-md-7 col-sm-8 col-10
+	    	 flex-xl-row flex-lg-row flex-md-row flex-sm-column flex-column
+	    	 mt-5 px-auto">
+	    	{/*For product image*/}
+	    	<div className="viewProdImgCont container-fluid text-center py-auto 
+	    		mx-auto
+	    		col-xl-4 col-lg-4 col-md-5 col-sm-10 col-10
+	    		my-5">
+	    		<img className="d-flex container-fluid viewProdImg" src={image} />
+	    	</div>
+	    	{/*For product info*/}
+	    	<div className="viewProdInfo container-fluid text-left px-4">
+	    		{/*For title and desc*/}
+	    		<div className="">
+	    			<h3 className="viewProdName mt-2">{ name } </h3>
+	    			<h6 className="viewProdDesc">{ description }</h6>
+	    		</div>
+
+	    		{/*Product price and sold*/}
+	    		<div className="pt-2">
+	    			<p className="viewProdPrice mb-1">Php { price }</p>
+	    			<p className="viewProdSold">{ stocks } sold</p>
+	    		</div>
+
+	    		<div className="quantity-btn col-5 mb-2">
+		    		<button className="qty-btn"onClick={()=>Decrement()} >-</button>
+		    		<span className="qty-btn"> {quantity} </span>
+		    		<button className="qty-btn" onClick={()=>Increment()}>+</button>
+	    		</div>
+	    		{/*For butons add to cart and buy now or shop now*/}
+	    		
+	    		{(user.id !== null) ?
+	    		<div className="mb-2">
+	    			<button type="button" as={Link} onClick={(e)=>addToCart()} className="addToCart col-xl-5 col-lg-5  col-md-6 col-8 mb-1">Add to cart </button>
+	    			<button type="button" as={Link} className="buyNow col-xl-5 col-lg-5 col-md-5  col-8  mb-1"> Buy Now</button>
+	    		</div>
+	    			:
+	    			<div className="text-center">
+	    			<Link type="button" as={Link} className="shopNow col-8 mb-4" to="/login"> Shop Now </Link>
+	    			</div>
+	    		}
+	    		
+	    	</div>
+
+	    </Container>
 	)
 
 }
