@@ -60,7 +60,7 @@ export default function Login() {
         		Swal.fire({
         			title: "Login Successful",
         			icon: "success",
-        			text: "Welcome to Zuitt!"
+        			text: "Welcome!"
         		});
         	} else {
 
