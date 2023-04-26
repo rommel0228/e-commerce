@@ -87,9 +87,6 @@ export default function ProductView() {
 	}
 
 	useEffect(() => {
-
-		console.log(productId);
-
 		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
@@ -126,6 +123,7 @@ export default function ProductView() {
 			        productId: productId,
 			        price: price,
 			        quantity: quantity,
+					image: image,
 			        totalAmount: price*quantity
 			    })
 		})

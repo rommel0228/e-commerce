@@ -11,9 +11,6 @@ export default function Products(){
 		fetch(`${process.env.REACT_APP_API_URL}/products/allactive/`)
 		.then(res => res.json())
 		.then(data=> {
-
-			console.log(data);
-
 			setProducts(data.map(product=> {
 				return (
 					<ProductCard key={ product._id } product={product} />
