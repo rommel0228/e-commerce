@@ -1,4 +1,3 @@
-//For capstone 3
 import Carousel from 'react-bootstrap/Carousel';
 
 import { useState , useEffect } from 'react';

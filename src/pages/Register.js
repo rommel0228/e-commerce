@@ -105,10 +105,6 @@ export default function Register(){
 	    })
 	}
 
-	//Sets submit button to true if conidtions are met
-		// 1. All fields must contain a string input
-		// 2. Password character length must be greater than or equal to 8
-		// 3. Password1 and password to must be the same
 	useEffect(() => {
 		if((email !== '' && 
 			password1.length >= 8 && 

@@ -22,15 +22,6 @@ export default function Login() {
         // Prevents page redirection via form submission
         e.preventDefault();
 
-        // Process a fetch request to the corresponding backend API
-        // The header information "Content-Type" is used to specify that the information being sent to the backend will be sent in the form of JSON
-        // The fetch request will communicate with our backend application providing it with a stringified JSON
-        // Convert the information retrieved from the backend into a JavaScript object using the ".then(res => res.json())"
-        // Capture the converted data and using the ".then(data => {})"
-        // Syntax
-            // fetch('url', {options})
-            // .then(res => res.json())
-            // .then(data => {})
         fetch(`${process.env.REACT_APP_API_URL}/users/login`,
         {
         	method: 'POST',
@@ -73,18 +64,6 @@ export default function Login() {
         	}
         });
 
-        // Set the email of the authenticated user in the local storage
-        // Syntax
-        	// localStorage.setItem('propertyName', value);
-        // Storing information in the localStorage will make the data persistent even as the page is refreshed unlike with the use of states where the information is reset when refreshing the page
-        // localStorage.setItem('email', email) -- implementeed as jwt
-
-        // Set the global user state to have properties obtained from local storage
-        // Though access to the user information can be done via the localStorage this is necessary to update the user state which will help update the App component and rerender it to avoid refreshing the page upon user login and logout
-        // When states change components are rerendered and the AppNavbar component will be updated based on the user credentials, unlike when using the localStorage where the localStorage does not trigger component rerendering
-        // setUser({ email: localStorage.getItem('email')})
-
-        // Clear input fields after submission
         setEmail('');
         setPassword('');
 

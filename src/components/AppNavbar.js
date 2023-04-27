@@ -1,9 +1,3 @@
-// React Bootstrap Components
-/*
-	import moduleName from "filePath"
-*/
-// import Container from "react-bootstrap/Container";
-// import { useState } from 'react';
 import { useContext } from 'react';
 
 import { Container, Navbar, Nav } from "react-bootstrap";
